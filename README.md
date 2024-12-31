@@ -1,0 +1,2 @@
+# Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault
+Projet de développement d'un serveur RESTful basé sur FastAPI, connecté à une base de données SQL pour la gestion, le traitement et le stockage des données. Le projet inclut une API REST permettant des interactions client/serveur, ainsi qu'un site web local développé en HTML/CSS/JavaScript pour une interface utilisateur intuitive.
