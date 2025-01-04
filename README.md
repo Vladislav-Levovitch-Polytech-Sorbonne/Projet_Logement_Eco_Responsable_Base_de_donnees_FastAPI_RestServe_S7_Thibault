@@ -10,7 +10,7 @@ Le dépôt est structuré comme suit :
 
 + 🗂️​ **[`Partie 2`](https://github.com/Vladislav-Levovitch-Polytech-Sorbonne/Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault/tree/main/Partie%202%20-%20Serveur%20RESTful) - Serveur RESTful`** : Implémente un serveur RESTful en Python pour interagir avec la base de données.
 
-+ 🗂️​ **[`Partie 3`](https://github.com/Vladislav-Levovitch-Polytech-Sorbonne/Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault/tree/main/Partie%202%20-%20Serveur%20RESTful) - Intégration APIs externes`** : (bientôt) Intégration d’APIs REST pour des données externes.
++ 🗂️​ **[`Partie 3`](https://github.com/Vladislav-Levovitch-Polytech-Sorbonne/Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault/tree/main/Partie%203%20-%20HTML%20CSS%20Javascript) - Intégration APIs externes`** : Intégration d’APIs REST pour des données externes sous HTML5.
 
 🗂️​ **`Ressources_utiles_utilisees`** : Contient des documents et références utilisés pour la réalisation du projet.
 
@@ -34,8 +34,12 @@ Le dépôt est structuré comme suit :
   - Génération dynamique de pages HTML avec un graphique ( Google Charts ) pour visualiser la répartition des dépenses par domaine liées aux factures.
 - Le serveur permet d'accéder et de modifier les données sans interaction directe avec la base SQL.
 
-### Partie 3 - Intégration APIs externes
-
+### Partie 3 - Site Web (HTML/CSS/JavaScript)
+- Développement d'un site web permettant de gérer les fonctionnalités du logement éco-responsable. Le site respecte les principes du HTML5 et est conçu pour être totalement responsive, facilitant une utilisation fluide sur différents appareils.
+- Fichier principal : **`index.html`**
+  - Contient la structure de base du site, notamment le footer ( pieds de page ) et le lien vers les différents fichiers CSS pour les styles.
+- **`Structure.css`** : Ce fichier centralise les styles généraux du site, comme les polices, les marges, et la configuration des éléments communs (par exemple, le menu de navigation ou le header ( en-tête )).
+- Fichiers CSS spécifiques : Chaque page ( accueil, consommation, état des capteurs/actionneurs, économies réalisées, configuration) dispose d'un fichier CSS dédié pour gérer son design individuel.
 ---
 
 ## 🗝️​ Utilisation
