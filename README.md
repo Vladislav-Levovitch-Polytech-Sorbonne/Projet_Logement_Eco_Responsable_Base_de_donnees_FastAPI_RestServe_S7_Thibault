@@ -13,6 +13,7 @@ Le dépôt est structuré comme suit :
 + 🗂️​ **[`Partie 3`](https://github.com/Vladislav-Levovitch-Polytech-Sorbonne/Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault/tree/main/Partie%202%20-%20Serveur%20RESTful) - Intégration APIs externes`** : (bientôt) Intégration d’APIs REST pour des données externes.
 
 🗂️​ **`Ressources_utiles_utilisees`** : Contient des documents et références utilisés pour la réalisation du projet.
+
 ⚖️​ **`LICENSE`** : Licence publique du projet (GPL-3.0).
 
 ---
@@ -55,3 +56,5 @@ https://chatgpt.com/
 
 Remerciement pour le ReadMe source reutilisé : Ayoub LADJiCi 
 Readapted with gpt
+
+Aide rédactionnelle, au débogage, au code, soutien et remerciement : Daniel, Yulin, Maxime, Ayman, Victor, Quentin, Ayoub, Keryann, Nicolas, ChatGPT, HARIAN Elyoth, Benjamin et Thibault HILAIRE
