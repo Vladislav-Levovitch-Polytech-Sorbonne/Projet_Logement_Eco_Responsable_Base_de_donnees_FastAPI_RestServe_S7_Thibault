@@ -49,7 +49,7 @@ La fonction de remplissage se trouve dans le fichier : **📁 [`remplissage.py`]
 
 J ai utilise cette commande pour l insertion de nouvelle donnee de maniere plus automatisable qu avec le code en sqlite3 : ``` c.executemany('INSERT INTO Factures (type_facture, montant, consommation, ref_id_logement, date_emission) VALUES (?, ?, ?, ?, ?)', values)```
 
-Les generations de donnees ont ete en partie tire au sort dans une plage de coherence bornee pour chaque donnes par exemple avec les commandes : ```elif type_facture in ['Electricité', 'Eau']:```
+Les generations de donnees ont ete en partie tiree au sort dans une plage de coherence bornee pour chaque donnees voir fixees pour les consommations au forfait par exemple avec les commandes : ```elif type_facture in ['Electricité', 'Eau']:```
       ```montant = round(random.uniform(45.0, 60.0), 2)      # Montant dans une plage plus elevee ```
       ```consommation = round(random.uniform(120, 300), 2)   # Consommation moyenne - haute```
 
