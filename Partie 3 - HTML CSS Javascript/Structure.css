@@ -35,6 +35,38 @@ html
     src: url("./Polices d ecriture/Brush Script Std.otf") format("opentype");
 }
 
+/*Bp gauche*/
+.container-button 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(234, 202, 0);
+    width: 150px;
+    padding: 20px 30px;
+    transform: skewY(15deg); /*Gpt-ed demande pour pencher le bp*/
+}
+
+.parallelogram-button 
+{
+    width: 150px;
+    height: 50px;
+    margin-top: 14px;
+    background-color: rgba(0, 21, 99, 0.952);
+    color: white;
+    border: none;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transform: skewY(0deg); /*Gpt-ed demande pour pencher le bp*/
+}
+
+.parallelogram-button:hover 
+{
+    background-color: #41b6f5b5;
+}
+
 /*Pied de page*/
 footer 
 {
