@@ -5,23 +5,104 @@
   <meta charset="UTF-8" /> <!-- Pour les accents -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestion Logement Intelligent</title>
-</head>
-<body>
 
+  <!-- Option pour l esthetique de la page  -->
+  <style>
+    @font-face 
+    {
+      font-family: "Times New Roman";
+      src: url("../Polices/Times New Roman.otf") format("opentype");
+    }
+
+    @font-face 
+    {
+      font-family: "Brush Script MT";
+      src: url("../Polices/Brush Script MT.ttf") format("truetype");
+    }
+
+    @font-face 
+    {
+      font-family: "Brush Script Std";
+      src: url("../Polices/Brush Script Std.otf") format("opentype");
+    }
+
+    /*Reset global securite*/
+    *{
+      margin: 0;
+      padding: 0;
+      font-family: "Times New Roman", Georgia, sans-serif;
+    }
+
+    /*Transition*/
+    html 
+    {
+      scroll-behavior: smooth;
+    }
+
+    /*Pied de page*/
+    footer 
+    {
+      background-color: rgba(0, 21, 99, 0.952); /*Couleur du Pied de page*/
+      color: white; /*Couleur du texte du pied de page*/
+      text-align: center;
+      padding: 10px; /*Padding de la bande pied de page*/
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer .footer-container 
+    {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+    }
+
+    /*Bp*/
+    footer .btn 
+    {
+      color: rgb(0, 21, 99);
+      background-color: rgb(222, 222, 222);
+      border: 3px solid #41b6f5b5;
+      padding: 5px 15px;
+      text-decoration: none;
+      border-radius: 17px; /*Arrondi bp*/
+      font-weight: bold;
+    }
+
+    /*Text par default*/
+    footer .container-cr 
+    {
+      font-size: 1.1em;
+    }
+
+    /*Text central*/
+    footer .text 
+    {
+      font-family: "Brush Script MT", Brush Script Std, cursive;
+      font-size: 2.4em;
+    }
+  </style>
+</head>
+
+<!-- Contenu de la page  -->
+<body>
   <footer>
     <div class="footer-container">
       <a href="#" class="btn btn-default"> &gt; Bp TP Haut de page &lt;</a>
 
-      <font color="red">
-        <div class="text">Test
-        </div>
+      <font color="white">
+        <div class="text">Test</div>
       </font>
 
       <div class="container-cr">
-        <p>© 2025 + Polytech Sorbonne + Electronique Informatique</p>
+        <p>© 2025 Polytech Sorbonne + Electronique Informatique</p>
       </div>
     </div>
   </footer>
 </body>
 
 </html>
+
+<!-- Avec l aide de Keryann, alias Pitit Chou -->
