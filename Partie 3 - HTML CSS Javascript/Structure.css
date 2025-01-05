@@ -1,0 +1,85 @@
+/*Reset global securite*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Times New Roman", Georgia, sans-serif;
+}
+
+/*Transition*/
+html 
+{
+    scroll-behavior: smooth;
+}
+
+@font-face 
+{
+    font-family: "Times New Roman";
+    src: url("./Polices d ecriture/Times New Roman.otf") format("opentype");
+}
+
+@font-face 
+{
+    font-family: "Georgia";
+    src: url("./Polices d ecriture/Georgia.otf") format("opentype");
+}
+
+@font-face 
+{
+    font-family: "Brush Script MT";
+    src: url("./Polices d ecriture/Brush Script MT.ttf") format("truetype");
+}
+
+@font-face 
+{
+    font-family: "Brush Script Std";
+    src: url("./Polices d ecriture/Brush Script Std.otf") format("opentype");
+}
+
+/*Pied de page*/
+footer 
+{
+    background-color: rgba(0, 21, 99, 0.952);
+    /*Couleur du pied de page*/
+    color: white;
+    /*Couleur du texte du pied de page*/
+    text-align: center;
+    padding: 10px;
+    /*Padding de la bande pied de page*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer .footer-container 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+/*Bp*/
+footer .btn 
+{
+    color: rgb(0, 21, 99);
+    background-color: rgb(222, 222, 222);
+    border: 3px solid #41b6f5b5;
+    padding: 5px 15px;
+    text-decoration: none;
+    border-radius: 17px;
+    /*Arrondi bp*/
+    font-weight: bold;
+}
+
+/*Text par default*/
+footer .container-cr 
+{
+    font-size: 1.1em;
+}
+
+/*Text central*/
+footer .text 
+{
+    font-family: "Brush Script MT", Brush Script Std, cursive;
+    font-size: 2.4em;
+}
