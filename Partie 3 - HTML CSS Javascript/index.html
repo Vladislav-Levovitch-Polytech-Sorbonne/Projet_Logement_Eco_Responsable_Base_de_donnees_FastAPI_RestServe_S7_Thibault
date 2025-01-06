@@ -5,6 +5,7 @@
   <meta charset="UTF-8" /> <!-- Pour les accents -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="Structure.css" />
+  <link rel="stylesheet" href="Accueil.css" />
   <title>Gestion Logement Intelligent</title> <!-- Titre de la page  -->
 </head>
 
@@ -28,6 +29,21 @@
     <button class="parallelogram-button">Configuration</button>
   </div>
 
+  <!-- Table des Mesures -->
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Valeur</th>
+        <th>Reference du Capteur</th>
+        <th>Date d'Insertion</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- Les données des mesures seront insérées ici par JavaScript -->
+    </tbody>
+  </table>
+
   <!-- Ajout du bas de la page -->
   <footer>
     <div class="footer-container">
@@ -40,7 +56,26 @@
       </div>
     </div>
   </footer>
+  
   <script src="script.js"></script>
+  <script>
+    fetch('http://127.0.0.1:5000/mesures')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('table-body');
+        data.forEach(mesure => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${mesure.Identifiant_table_m}</td>
+            <td>${mesure.valeur}</td>
+            <td>${mesure.ref_id_capteur}</td>
+            <td>${mesure.date_insertion}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Erreur:', error));
+  </script>
 </body>
 
 </html>

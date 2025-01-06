@@ -16,7 +16,7 @@ Utilisation de GPT pour le débogage, le codage et la recherche d'informations. 
    pip install flask-cors
    python app.py
 
-
+http://127.0.0.1:5000/mesures pour voir les donnees du site 
 
 **📁 app.py ( Serveur Flask )**
 Le fichier app.py contient la logique du serveur qui sert les données à la page web.
