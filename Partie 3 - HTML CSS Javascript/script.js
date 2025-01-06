@@ -1,4 +1,5 @@
-function updateClock() {
+function updateClock() 
+{
     const timeElement = document.getElementById("time");
     const now = new Date();
 

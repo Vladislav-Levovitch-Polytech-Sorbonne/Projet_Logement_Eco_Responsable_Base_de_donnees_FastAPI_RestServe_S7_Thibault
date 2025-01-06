@@ -98,9 +98,9 @@ footer
     text-align: center;
     padding: 10px;
     /*Padding de la bande pied de page*/
-    position: fixed;
     bottom: 0;
     width: 100%;
+    margin-top: auto; 
 }
 
 footer .footer-container 
