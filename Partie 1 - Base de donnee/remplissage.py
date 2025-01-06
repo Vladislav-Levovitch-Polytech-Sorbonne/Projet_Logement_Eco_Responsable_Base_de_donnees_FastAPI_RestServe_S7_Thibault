@@ -6,7 +6,7 @@ conn = sqlite3.connect('logement.db')
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
-# affichage d'une table
+# affichage d une table
 # lecture dans la base avec un select
 c.execute("SELECT * FROM Factures")
 
@@ -40,7 +40,7 @@ for i in range(4):
     ref_id_logement = 1  # Reference au 1er logement ( logement 1 )
     date_emission = f"2024-1{random.randint(0, 2)}-{random.randint(1, 30):02} {random.randint(7, 24):02}:{random.randint(0, 60):02}:{random.randint(2, 49):02}"
     values.append((type_facture, montant, consommation, ref_id_logement, date_emission))
-    c.executemany('INSERT INTO Factures (type_facture, montant, consommation, ref_id_logement, date_emission) VALUES (?, ?, ?, ?, ?)', values)
+c.executemany('INSERT INTO Factures (type_facture, montant, consommation, ref_id_logement, date_emission) VALUES (?, ?, ?, ?, ?)', values)
 
 valeur = []
 for _ in range(3):  # Generer 20 mesures
@@ -57,14 +57,23 @@ for _ in range(3):  # Generer 20 mesures
     
     # Ajouter la mesure avec le ref_id_capteur correspondant
     valeur.append((valeur_mesure, ref_id_capteur))
+c.executemany('INSERT INTO Mesures (valeur, ref_id_capteur) VALUES (?, ?)', valeur)
 
-    c.executemany('INSERT INTO Mesures (valeur, ref_id_capteur) VALUES (?, ?)', valeur)
+#for raw in c.execute('SELECT * FROM Mesures'):
+#    print(raw.keys())
+#    print(raw["valeur"])
+#    print(raw["ref_id_capteur"])
+#    print(raw["date_insertion"])
 
+# Affiche les colonnes une seule fois
 for raw in c.execute('SELECT * FROM Mesures'):
-    print(raw.keys())
-    print(raw["valeur"])
-    print(raw["ref_id_capteur"])
-    print(raw["date_insertion"])
+    print(raw.keys())  # Affiche les colonnes une seule fois
+    break  # S'arrête après la première ligne
+
+# Affiche les données sous la forme souhaitée
+for raw in c.execute('SELECT * FROM Mesures'):
+    print(f"{raw['Identifiant_table_m']}\t    {raw['valeur']}  \t {raw['date_insertion']}\t {raw['ref_id_capteur']}") #GPT ed 
+
 
 # fermeture
 conn.commit()
