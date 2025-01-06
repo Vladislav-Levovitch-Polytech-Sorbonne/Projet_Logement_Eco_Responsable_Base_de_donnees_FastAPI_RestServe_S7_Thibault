@@ -35,6 +35,25 @@ html
     src: url("./Polices d ecriture/Brush Script Std.otf") format("opentype");
 }
 
+h1 {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+}
+
+/* Horloge */
+.clock {
+    position: fixed;
+    top: 10px;
+    left: 90%;
+    background-color: rgba(0, 21, 99, 0.8);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 /*Bp gauche*/
 .container-button 
 {
