@@ -15,7 +15,8 @@ def get_mesures():
 
     mesures = []
     for row in rows:
-        mesures.append({
+        mesures.append(
+        {
             'Identifiant_table_m': row['Identifiant_table_m'],
             'valeur': row['valeur'],
             'ref_id_capteur': row['ref_id_capteur'],

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" /> <!-- Pour les accents -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="../Images et audios/Logo.png">
+    <link rel="stylesheet" href="../Structure.css" />
+    <link rel="stylesheet" href="Capteurs-Actionneurs.css" />
+    <title>Gestion Logement Intelligent</title> <!-- Titre de la page  -->
+</head>
+
+<!-- Contenu de la page  -->
+
+<body>
+
+    <h1>Capteurs-Actionneurs</h1>
+
+    <!-- Ajout de l horloge -->
+    <div class="clock">
+        <div id="time"></div>
+    </div>
+
+    <!-- Ajout du menu -->
+    <div class="container-button">
+        <a href="../index.html"><button class="parallelogram-button">Accueil</button></a>
+        <button class="parallelogram-button">Consommation</button>
+        <a href="Capteurs-Actionneurs.html"><button class="parallelogram-button">Capteurs/Actionneurs</button></a>
+        <button class="parallelogram-button">Economies</button>
+        <button class="parallelogram-button">Configuration</button>
+    </div>
+
+    <!-- Table des Mesures -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Valeur</th>
+                <th>Ref capteur</th>
+                <th>Date d insertion</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Les donnees des mesures seront inserees ici par JavaScript -->
+        </tbody>
+    </table>
+
+    <!-- Ajout du bas de la page -->
+    <footer>
+        <div class="footer-container">
+            <a href="#" class="btn btn-default"> &gt; Bp TP Haut de page &lt;</a>
+
+            <div class="text">Gestion Logement Intelligent</div>
+
+            <div class="container-cr">
+                <p>© 2025 Polytech Sorbonne + Electronique Informatique</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        fetch('http://127.0.0.1:5000/mesures')
+            .then(response => response.json())
+            .then(data => 
+            {
+                const tableBody = document.getElementById('table-body');
+                data.forEach(mesure => 
+                {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${mesure.Identifiant_table_m}</td>
+                        <td>${mesure.valeur}</td>
+                        <td>${mesure.ref_id_capteur}</td>
+                        <td>${mesure.date_insertion}</td>`;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Erreur:', error));
+    </script>
+</body>
+
+</html>
+
+<!-- Avec l aide de Keryann, alias Pitit Chou -->
