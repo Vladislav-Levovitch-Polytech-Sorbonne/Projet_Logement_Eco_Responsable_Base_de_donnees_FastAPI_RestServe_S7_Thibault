@@ -24,14 +24,23 @@ async def get_factures():
 async def generate_pie_chart():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT type_facture, SUM(montant) as total FROM Factures GROUP BY type_facture") # Proposed by Chat GPT
+    cursor.execute("SELECT type_facture, SUM(montant) as total FROM Factures GROUP BY type_facture")
     data = cursor.fetchall()
     conn.close()
 
-    donnees = [["type_facture", "total"]]
-    for row in data:
-        donnees.append([row["type_facture"], row["total"]])  # GPTed
+    # Vérification des données dans la console
+    print(data)
 
+    if not data:
+        return HTMLResponse(content="<p>Aucune donnée à afficher pour le graphique.</p>")
+
+    # Conversion des résultats SQL en un format compatible avec Google Charts
+    donnees = [["type_facture", "total"]]  # En-têtes des colonnes
+    for row in data:
+        # Chaque 'row' est un objet sqlite3.Row, donc on doit accéder à chaque colonne par son nom
+        donnees.append([row["type_facture"], row["total"]])
+
+    # Conversion en chaîne JSON-compatible (remplacement des apostrophes par des guillemets)
     donnee_convertie = str(donnees).replace("'", '"')
 
     # HTML avec Google Charts
@@ -41,32 +50,25 @@ async def generate_pie_chart():
     <head>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
-            google.charts.load('current', {{'packages':['corechart']}});
+            google.charts.load('current', {{'packages':['corechart']}}); 
             google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() 
-            {{
+            function drawChart() {{
                 var data = google.visualization.arrayToDataTable({donnee_convertie});
-                var options = 
-                {{
+                var options = {{
                     title: 'Répartition des couts globaux par consommation',
                     pieHole: 0.4,
                 }};
-
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
                 chart.draw(data, options);
             }}
         </script>
     </head>
     <body>
-        <div id="donutchart" style="width: 1200px; height: 600px;"></div>
+        <div id="piechart" style="width: 1200px; height: 600px;"></div>
     </body>
     </html>
     """
-#var data = google.visualization.arrayToDataTable([
-#          ['Task', 'Hours per Day'],
-#          ['Work',     11]]);
     return HTMLResponse(content=html_content)
 
 # Route pour ajouter une nouvelle facture
