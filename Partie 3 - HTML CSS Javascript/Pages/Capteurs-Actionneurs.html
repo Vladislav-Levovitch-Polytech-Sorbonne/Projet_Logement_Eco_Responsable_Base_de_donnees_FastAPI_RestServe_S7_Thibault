@@ -70,7 +70,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${mesure.Identifiant_table_m}</td>
-                        <td>${mesure.valeur}</td>
+                        <td>${mesure.valeur}${mesure.unite_mesure}</td>
                         <td>${mesure.ref_id_capteur}</td>
                         <td>${mesure.date_insertion}</td>`;
                     tableBody.appendChild(row);

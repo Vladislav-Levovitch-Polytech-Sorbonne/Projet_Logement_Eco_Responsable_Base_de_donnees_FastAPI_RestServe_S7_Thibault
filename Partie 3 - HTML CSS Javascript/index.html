@@ -58,7 +58,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
   <script>
     fetch('http://127.0.0.1:5000/mesures')
       .then(response => response.json())
@@ -72,11 +71,11 @@
         {
           const row = document.createElement('tr');
           row.innerHTML = `
-        <td>${mesure.Identifiant_table_m}</td>
-        <td>${mesure.valeur}</td>
-        <td>${mesure.ref_id_capteur}</td>
-        <td>${mesure.date_insertion}</td>
-      `;
+            <td>${mesure.Identifiant_table_m}</td>
+            <td>${mesure.valeur}${mesure.unite_mesure}</td> <!-- Ajout de l unite -->
+            <td>${mesure.ref_id_capteur}</td>
+            <td>${mesure.date_insertion}</td>
+          `;
           tableBody.appendChild(row);
         });
       })
