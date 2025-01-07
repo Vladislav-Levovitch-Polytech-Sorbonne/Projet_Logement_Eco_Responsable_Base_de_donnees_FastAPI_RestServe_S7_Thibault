@@ -61,23 +61,27 @@
   <script src="script.js"></script>
   <script>
     fetch('http://127.0.0.1:5000/mesures')
-      .then(response => response.json())
-      .then(data => 
-      {
-        const tableBody = document.getElementById('table-body');
-        data.forEach(mesure => 
-        {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${mesure.Identifiant_table_m}</td>
-            <td>${mesure.valeur}</td>
-            <td>${mesure.ref_id_capteur}</td>
-            <td>${mesure.date_insertion}</td>
-          `;
-          tableBody.appendChild(row);
-        });
-      })
-      .catch(error => console.error('Erreur:', error));
+  .then(response => response.json())
+  .then(data => 
+  {
+    const tableBody = document.getElementById('table-body');
+    // On prend les 10 derniers éléments des données
+    const Extrait_Tableau = data.slice(-10);
+    
+    // On parcourt ces 10 derniers éléments
+    Extrait_Tableau.forEach(mesure => 
+    {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${mesure.Identifiant_table_m}</td>
+        <td>${mesure.valeur}</td>
+        <td>${mesure.ref_id_capteur}</td>
+        <td>${mesure.date_insertion}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  })
+  .catch(error => console.error('Erreur:', error));
   </script>
 </body>
 
