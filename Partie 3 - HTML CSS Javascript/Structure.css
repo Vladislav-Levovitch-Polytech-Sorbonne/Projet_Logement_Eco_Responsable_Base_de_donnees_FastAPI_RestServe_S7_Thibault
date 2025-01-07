@@ -35,15 +35,26 @@ html
     src: url("./Polices d ecriture/Brush Script Std.otf") format("opentype");
 }
 
-h1 {
+/* Applique une mise en page flexible sur le body */
+html, body 
+{
+    height: 100%; /* Assure que le body et html prennent toute la hauteur de la page */
+    display: flex;
+    flex-direction: column; /* Organise le contenu du body en colonne */
+}
+
+/* Le titre de la page */
+h1 
+{
     text-align: center;
     margin-top: 20px;
     font-size: 2.5em;
     color: rgba(0, 21, 99, 0.8);
 }
 
-/* Horloge */
-.clock {
+/* Horloge fixee en haut à droite */
+.clock 
+{
     position: fixed;
     top: 10px;
     left: 90%;
@@ -55,7 +66,7 @@ h1 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/*Bp gauche*/
+/* Menu lateral gauche avec des boutons parallelogrammes */
 .container-button 
 {
     position: fixed;
@@ -65,7 +76,7 @@ h1 {
     background-color: rgb(234, 202, 0);
     width: 150px;
     padding: 20px 30px;
-    transform: skewY(15deg); /*Gpt-ed demande pour pencher le bp*/
+    transform: skewY(15deg); /* Incline les boutons */
 }
 
 .parallelogram-button 
@@ -80,7 +91,7 @@ h1 {
     line-height: 50px;
     font-size: 16px;
     cursor: pointer;
-    transform: skewY(0deg); /*Gpt-ed demande pour pencher le bp*/
+    transform: skewY(0deg); /* Inclinaison des boutons */
 }
 
 .parallelogram-button:hover 
@@ -88,21 +99,45 @@ h1 {
     background-color: #41b6f5b5;
 }
 
-/*Pied de page*/
+/* Contenu principal - Occupe toute la hauteur restante */
+main 
+{
+    flex-grow: 1; /* Permet au contenu principal d occuper toute la hauteur disponible */
+}
+
+/* Table des Mesures */
+table 
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td 
+{
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+thead 
+{
+    background-color: #f4f4f4;
+}
+
+/* Pied de page fixe en bas de la page */
 footer 
 {
     background-color: rgba(0, 21, 99, 0.952);
-    /*Couleur du pied de page*/
-    color: white;
-    /*Couleur du texte du pied de page*/
+    color: white; /*Texte*/
     text-align: center;
     padding: 10px;
-    /*Padding de la bande pied de page*/
     bottom: 0;
     width: 100%;
-    margin-top: auto; 
+    margin-top: auto; /* Permet au footer de se positionner en bas */
 }
 
+/* Style pour le footer container */
 footer .footer-container 
 {
     display: flex;
@@ -111,7 +146,7 @@ footer .footer-container
     padding: 10px 30px;
 }
 
-/*Bp*/
+/* Bouton du footer */
 footer .btn 
 {
     color: rgb(0, 21, 99);
@@ -124,13 +159,13 @@ footer .btn
     font-weight: bold;
 }
 
-/*Text par default*/
+/* Texte du footer */
 footer .container-cr 
 {
     font-size: 1.1em;
 }
 
-/*Text central*/
+/* Texte du footer avec une police manuscrite */
 footer .text 
 {
     font-family: "Brush Script MT", Brush Script Std, cursive;
