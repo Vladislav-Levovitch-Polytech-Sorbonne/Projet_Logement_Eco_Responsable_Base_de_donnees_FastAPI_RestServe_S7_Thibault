@@ -6,7 +6,7 @@ app = FastAPI()
 
 # Fonction pour initialiser la connexion à la base de données
 def get_db_connection():
-    conn = sqlite3.connect('logement.db')
+    conn = sqlite3.connect('../Partie 1 - Base de donnee/logement.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -32,7 +32,7 @@ async def generate_pie_chart():
     print(data)
 
     if not data:
-        return HTMLResponse(content="<p>Aucune donnée à afficher pour le graphique.</p>")
+        return HTMLResponse(content="<p>Aucune donnee a afficher pour le graphique.</p>")
 
     # Conversion des résultats SQL en un format compatible avec Google Charts
     donnees = [["type_facture", "total"]]  # En-têtes des colonnes
@@ -56,7 +56,7 @@ async def generate_pie_chart():
             function drawChart() {{
                 var data = google.visualization.arrayToDataTable({donnee_convertie});
                 var options = {{
-                    title: 'Répartition des couts globaux par consommation',
+                    title: 'Répartition des coûts globaux par consommation',
                     pieHole: 0.4,
                 }};
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
