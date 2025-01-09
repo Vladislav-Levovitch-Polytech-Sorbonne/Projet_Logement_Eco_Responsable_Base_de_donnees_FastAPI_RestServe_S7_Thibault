@@ -123,8 +123,8 @@ INSERT INTO Mesures (valeur, ref_id_capteur) VALUES
 
 -- Insertion donnees de Factures
 INSERT INTO Factures (type_facture, montant, consommation, ref_id_logement) VALUES
-       ('Electricite', 76.8, 290, 1),  -- Facture de electricite pour le logement 1
-       ('Eau', 40.50, 120, 1), -- Facture d eau pour le logement 1
+       ('Electricité', 76.8, 290, 1),  -- Facture de electricite pour le logement 1
+       ('Eau', 40.50, 120, 1), -- Facture d eau pour le logement 1 l
        ('Gaz', 65.80, 180, 1), -- Facture de gaz pour le logement 1
        ('Déchets', 25.00, NULL, 1); -- Facture de gestion des dechets, montant en mode forfait (pas de consommation associee, non relevable)
 
