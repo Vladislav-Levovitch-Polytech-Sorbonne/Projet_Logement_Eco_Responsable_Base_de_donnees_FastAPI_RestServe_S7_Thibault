@@ -12,10 +12,16 @@ Utilisation de GPT pour le débogage, le codage et la recherche d'informations. 
 
 1. Assurez-vous que Flask est installé. Si ce n'est pas le cas, installez-le avec la commande suivante, si besion flaskcors et enfin lancez python app.py :
    ```bash
+   python -m venv env
+   .\env\Scripts\Activate.ps1
+   pip install "fastapi[standard]"
    pip install flask
    pip install flask-cors
-   python app.py
+   pip install matplotlib numpy
+   python '.\Partie 3 - HTML CSS Javascript\app.py'    
+   fastapi dev '.\Partie 3 - HTML CSS Javascript\2_Serv_PieChart_Factures.py'
 
+Enfin ouvrir dans un navigateur le fichier **index.html**
 http://127.0.0.1:5000/mesures pour voir les donnees du site 
 
 **📁 app.py ( Serveur Flask )**
@@ -31,6 +37,7 @@ Ressources internet utilisées :
 **https://openclassrooms.com/fr/paths/942-bootcamp-introduction-html-css-et-javascript**
 https://chatgpt.com/
 https://openclassrooms.com/fr/
+https://developers.google.com/chart/interactive/docs/gallery?hl=fr
 https://www.w3schools.com/bootstrap/default.asp
 
 Remerciement pour le ReadMe source reutilisé : Ayoub LADJiCi et des fichiers de Daniel FERREIRA LARA 
