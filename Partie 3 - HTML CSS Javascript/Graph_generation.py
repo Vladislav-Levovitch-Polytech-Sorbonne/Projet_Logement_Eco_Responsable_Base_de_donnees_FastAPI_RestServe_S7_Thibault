@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import HTMLResponse
 import sqlite3
 from datetime import datetime
@@ -23,12 +23,12 @@ async def get_factures():
 
 # Route pour générer un graphique à partir des données
 @app.get("/factures/conso_chart/", response_class=HTMLResponse)
-async def generate_pie_chart():  # Conso_chart
+async def generate_pie_chart(start_date: str = None, end_date: str = None):
     # Connexion à la base de données
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Récupérer les données agrégées par date et type de facture
+    # Récupération des données sans filtre SQL
     cursor.execute("""
         SELECT date_emission, type_facture, consommation
         FROM Factures
@@ -40,12 +40,29 @@ async def generate_pie_chart():  # Conso_chart
     if not data:
         return HTMLResponse(content="<p>Aucune donnée à afficher pour le graphique.</p>")
 
-    # Regroupement des données par jour et par type de facture
+    # Conversion des dates en objets datetime pour la comparaison
+    if start_date:
+        start_date = datetime.strptime(start_date, "%Y-%m-%d")
+    if end_date:
+        end_date = datetime.strptime(end_date, "%Y-%m-%d")
+
+    # Filtrer les données selon les dates sélectionnées
+    filtered_data = []
+    for row in data:
+        row_date = datetime.strptime(row["date_emission"].split()[0], "%Y-%m-%d")
+        if (not start_date or row_date >= start_date) and (not end_date or row_date <= end_date):
+            filtered_data.append(row)
+
+    # Si aucune donnée après filtrage
+    if not filtered_data:
+        return HTMLResponse(content="<p>Aucune donnée disponible pour la plage de dates sélectionnée.</p>")
+
+    # Reste du code pour regrouper et préparer les données pour le graphique
     factures_par_jour = {}
     types_factures = ['Electricité', 'Eau', 'Gaz', 'Déchets', 'Téléphone', 'Internet']
 
-    for row in data:
-        date = row["date_emission"].split()[0]  # Extraire uniquement la date (sans l'heure)
+    for row in filtered_data:
+        date = row["date_emission"].split()[0]
         type_facture = row["type_facture"]
         consommation = row["consommation"]
 
@@ -53,38 +70,33 @@ async def generate_pie_chart():  # Conso_chart
             factures_par_jour[date] = {}
 
         if type_facture == "Déchets":
-            # Pour les déchets, on incrémente de 1 pour chaque facture, même si la consommation est NULL
             consommation = 1
         elif consommation is None:
-            consommation = 0  # Si la consommation est NULL pour d'autres factures, on met à 0
+            consommation = 0
 
-        # Ajouter la consommation à la date et au type de facture approprié
         if type_facture not in factures_par_jour[date]:
             factures_par_jour[date][type_facture] = 0
 
         factures_par_jour[date][type_facture] += consommation
 
-    # Organiser les données pour Google Charts
-    chart_data = [['Date'] + types_factures]  # Première ligne : en-tête des colonnes
+    chart_data = [['Date'] + types_factures]
 
     for date, factures in factures_par_jour.items():
         ligne = [date]
         for type_facture in types_factures:
-            consommation = factures.get(type_facture, 0)  # Utiliser 0 si le type de facture n'existe pas pour ce jour
+            consommation = factures.get(type_facture, 0)
             ligne.append(consommation)
         chart_data.append(ligne)
 
-    # Conversion des données en format JSON-compatible
     chart_data_json = str(chart_data).replace("'", '"')
 
-    # HTML avec Google Charts
     html_content = f"""
     <!DOCTYPE html>
     <html>
     <head>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
-        google.charts.load('current', {{'packages':['corechart', 'line']}});  // Charge la bibliothèque Line pour les courbes
+        google.charts.load('current', {{'packages':['corechart', 'line']}});
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {{
@@ -94,21 +106,11 @@ async def generate_pie_chart():  # Conso_chart
                 title: 'Répartition des Consommations par Jour',
                 hAxis: {{
                     title: 'Date',
-                    format: 'yyyy.MM.dd',  // Formater les dates
+                    format: 'yyyy.MM.dd',
                 }},
                 vAxis: {{
                     title: 'Consommation Total',
                     minValue: 0
-                }},
-                vAxes: {{
-                    0: {{
-                        title: 'Consommation (unités)',
-                        minValue: 0
-                    }},
-                    1: {{
-                        title: 'Déchets (Nombre de Factures)',
-                        minValue: 0
-                    }}
                 }},
                 series: {{
                     0: {{ targetAxisIndex: 0 }},
@@ -118,8 +120,8 @@ async def generate_pie_chart():  # Conso_chart
                     4: {{ targetAxisIndex: 0 }},
                     5: {{ targetAxisIndex: 0 }}
                 }},
-                isStacked: true,  // Empile les courbes pour une visualisation claire
-                curveType: 'none', //'function',  // Courbes lissées pour les lignes
+                isStacked: true,
+                curveType: 'none',
                 legend: {{
                     position: 'top'
                 }},
