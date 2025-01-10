@@ -41,6 +41,11 @@ html, body
     height: 100%; /* Assure que le body et html prennent toute la hauteur de la page */
     display: flex;
     flex-direction: column; /* Organise le contenu du body en colonne */
+    background-image: url('Images et audios/snow_background.png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 /* Le titre de la page */
