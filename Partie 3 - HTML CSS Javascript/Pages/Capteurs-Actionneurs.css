@@ -11,7 +11,7 @@ th, td
 {
     padding: 12px 7px;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(234, 202, 0); /*Pour les bordures des tableaux*/
 }
 
 th 
