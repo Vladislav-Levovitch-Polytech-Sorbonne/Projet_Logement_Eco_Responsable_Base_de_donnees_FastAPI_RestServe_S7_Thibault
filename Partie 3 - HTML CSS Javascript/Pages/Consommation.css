@@ -1,4 +1,8 @@
-iframe
+.graph-container 
 {
-    margin: 30px 30%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    width: 80%; /* ajustez la largeur selon vos besoins */
+    text-align: center;
 }

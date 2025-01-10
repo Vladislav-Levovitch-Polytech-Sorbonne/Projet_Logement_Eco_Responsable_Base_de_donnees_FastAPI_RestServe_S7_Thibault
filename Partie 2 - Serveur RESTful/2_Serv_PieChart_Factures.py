@@ -65,7 +65,7 @@ async def generate_pie_chart():
         </script>
     </head>
     <body>
-        <div id="piechart" style="width: 1200px; height: 600px;"></div>
+        <div id="piechart"></div>
     </body>
     </html>
     """

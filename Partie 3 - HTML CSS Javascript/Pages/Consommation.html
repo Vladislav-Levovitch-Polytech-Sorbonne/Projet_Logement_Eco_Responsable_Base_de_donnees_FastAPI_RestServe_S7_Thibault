@@ -52,3 +52,114 @@
 </html>
 
 <!-- Avec l aide de Keryann, alias Pitit Chou -->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="../Images et audios/Logo.png">
+    <link rel="stylesheet" href="../Structure.css" />
+    <link rel="stylesheet" href="Consommation.css" />
+    <title>Gestion Logement Intelligent</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Librairie Chart.js -->
+</head>
+
+<body>
+
+    <h1>Consommation</h1>
+
+    <!-- Ajout du menu -->
+    <div class="container-button">
+        <a href="../index.html"><button class="parallelogram-button">Accueil</button></a>
+        <a href="Consommation.html"><button class="parallelogram-button">Consommation</button></a>
+        <a href="Capteurs-Actionneurs.html"><button class="parallelogram-button">Capteurs-Actionneurs</button></a>
+        <a href="Economies.html"><button class="parallelogram-button">Economies</button></a>
+        <a href="Configuration.html"><button class="parallelogram-button">Configuration</button></a>
+    </div>
+
+    <!-- Formulaire pour sélectionner une plage de dates -->
+    <div>
+        <label for="start-date">Date de début :</label>
+        <input type="date" id="start-date" />
+        <label for="end-date">Date de fin :</label>
+        <input type="date" id="end-date" />
+        <button id="submit-button">Afficher</button>
+    </div>
+
+    <!-- Section pour afficher le graphique -->
+    <div>
+        <canvas id="consumption-chart" width="800" height="400"></canvas>
+    </div>
+
+    <!-- Ajout du bas de la page -->
+    <footer>
+        <div class="footer-container">
+            <a href="#" class="btn btn-default"> &gt; Bp TP Haut de page &lt;</a>
+            <div class="text">Gestion Logement Intelligent</div>
+            <div class="container-cr">
+                <p>© 2025 Polytech Sorbonne + Electronique Informatique</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialisation du graphique
+        const ctx = document.getElementById('consumption-chart').getContext('2d');
+        let chart = new Chart(ctx, {
+            type: 'bar', // Type de graphique
+            data: {
+                labels: [], // Labels vides au départ
+                datasets: [{
+                    label: 'Consommation (€)',
+                    data: [], // Données vides au départ
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Fonction pour mettre à jour le graphique
+        function updateChart(labels, data) {
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = data;
+            chart.update();
+        }
+
+        // Ajout d'un événement sur le bouton
+        document.getElementById('submit-button').addEventListener('click', () => {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            // Vérification des dates
+            if (!startDate || !endDate) {
+                alert("Veuillez sélectionner une plage de dates.");
+                return;
+            }
+
+            // Appel à l'API Flask
+            fetch(`http://127.0.0.1:5000/factures?start_date=${startDate}&end_date=${endDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(facture => facture.date); // Dates
+                    const amounts = data.map(facture => facture.montant); // Montants
+                    updateChart(labels, amounts); // Mise à jour du graphique
+                })
+                .catch(error => console.error('Erreur:', error));
+        });
+    </script>
+</body>
+
+</html>
+
+<!-- Avec l aide de Keryann, alias Pitit Chou et gpt - ed-->
