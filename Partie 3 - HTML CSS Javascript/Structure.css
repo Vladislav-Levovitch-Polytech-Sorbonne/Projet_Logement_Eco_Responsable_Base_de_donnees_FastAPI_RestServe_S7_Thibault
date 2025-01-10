@@ -66,6 +66,44 @@ h1
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Style du bouton "Démarrer/Arrêter la musique" */
+#start-music-button {
+    background-color: rgba(0, 21, 99, 0.8);
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 10px auto;
+    display: block;
+}
+
+/* Style du bouton au survol */
+#start-music-button:hover {
+    background-color: rgba(0, 21, 99, 1);
+    transform: scale(1.05);
+}
+
+/* Animation de clignotement du bouton musique */
+@keyframes flashing {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#start-music-button:active {
+    animation: flashing 0.5s ease;
+}
+
 /* Menu lateral gauche avec des boutons parallelogrammes */
 .container-button 
 {

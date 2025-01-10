@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -16,18 +17,18 @@
 
   <h1>Accueil</h1>
 
-  <!-- Ajout de l horloge -->
+  <!-- Ajout de l'horloge -->
   <div class="clock">
     <div id="time"></div>
   </div>
 
-    <!-- Ajout du menu -->
-    <div class="container-button">
-      <a href="index.html"><button class="parallelogram-button">Accueil</button></a>
-      <a href="Pages/Consommation.html"><button class="parallelogram-button">Consommation</button></a>
-      <a href="Pages/Capteurs-Actionneurs.html"><button class="parallelogram-button">Capteurs-Actionneurs</button></a>
-      <a href="Pages/Economies.html"><button class="parallelogram-button">Economies</button></a>
-      <a href="Pages/Configuration.html"><button class="parallelogram-button">Configuration</button></a>
+  <!-- Ajout du menu -->
+  <div class="container-button">
+    <a href="index.html"><button class="parallelogram-button">Accueil</button></a>
+    <a href="Pages/Consommation.html"><button class="parallelogram-button">Consommation</button></a>
+    <a href="Pages/Capteurs-Actionneurs.html"><button class="parallelogram-button">Capteurs-Actionneurs</button></a>
+    <a href="Pages/Economies.html"><button class="parallelogram-button">Economies</button></a>
+    <a href="Pages/Configuration.html"><button class="parallelogram-button">Configuration</button></a>
   </div>
 
   <!-- Table des Mesures -->
@@ -37,43 +38,75 @@
         <th>ID</th>
         <th>Valeur</th>
         <th>Ref capteur</th>
-        <th>Date d insertion</th>
+        <th>Date d'insertion</th>
       </tr>
     </thead>
     <tbody id="table-body">
-      <!-- Les donnees des mesures seront inserees ici par JavaScript -->
+      <!-- Les données des mesures seront insérées ici par JavaScript -->
     </tbody>
   </table>
 
   <!-- Ajout du bas de la page -->
   <footer>
     <div class="footer-container">
-      <a href="#" class="btn btn-default"> &gt; Bp TP Haut de page &lt;</a>
+      <a href="#" class="btn btn-default"> > Bp TP Haut de page < </a>
 
-      <div class="text">Gestion Logement Intelligent</div>
+          <div class="text">Gestion Logement Intelligent</div>
 
-      <div class="container-cr">
-        <p>© 2025 Polytech Sorbonne + Electronique Informatique</p>
-      </div>
+          <div class="container-cr">
+            <p>© 2025 Polytech Sorbonne + Electronique Informatique</p>
+          </div>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script_horloge.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const audio = document.createElement('audio');
+      audio.id = 'background-music';
+      audio.preload = 'auto';
+      audio.loop = true;
+      const source = document.createElement('source');
+      source.src = 'Images et audios/Mark_Ambor_Belong_Together.mp3';
+      source.type = 'audio/mp3';
+      audio.appendChild(source);
+
+      document.body.appendChild(audio);
+
+      const musicButton = document.createElement('button');
+      musicButton.textContent = 'Démarrer la musique';
+      musicButton.id = 'start-music-button';
+      document.body.appendChild(musicButton);
+
+      musicButton.style.position = 'fixed';
+      musicButton.style.left = '80%';
+      musicButton.style.transform = 'translateX(-50%)';
+
+      musicButton.addEventListener('click', function () {
+        if (audio.paused) {
+          audio.play().catch(error => {
+            console.log("Erreur de lecture de la musique : ", error);
+          });
+          musicButton.textContent = 'Arrêter la musique';
+        } else {
+          audio.pause();
+          musicButton.textContent = 'Démarrer la musique';
+        }
+      });
+    });
+
     fetch('http://127.0.0.1:5000/mesures')
       .then(response => response.json())
-      .then(data => 
-      {
+      .then(data => {
         const tableBody = document.getElementById('table-body');
         // On prend les 10 derniers éléments des données
         const extraitdernieresmesures = data.slice(-10);
         // On parcourt ces 10 derniers éléments
-        extraitdernieresmesures.forEach(mesure => 
-        {
+        extraitdernieresmesures.forEach(mesure => {
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${mesure.Identifiant_table_m}</td>
-            <td>${mesure.valeur}${mesure.unite_mesure}</td> <!-- Ajout de l unite -->
+            <td>${mesure.valeur}${mesure.unite_mesure}</td> <!-- Ajout de l'unité -->
             <td>${mesure.ref_id_capteur}</td>
             <td>${mesure.date_insertion}</td>
           `;
@@ -86,4 +119,4 @@
 
 </html>
 
-<!-- Avec l aide de Keryann, alias Pitit Chou -->
+<!-- Avec l'aide de Keryann, alias Pitit Chou -->
