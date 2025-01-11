@@ -38,7 +38,7 @@ for i in range(4):
         consommation = round(random.uniform(100, 500), 2)   # Consommation par defaut
 
     ref_id_logement = 1  # Reference au 1er logement ( logement 1 )
-    date_emission = f"2024-1{random.randint(0, 2)}-{random.randint(1, 30):02} {random.randint(7, 24):02}:{random.randint(0, 60):02}:{random.randint(2, 49):02}"
+    date_emission = f"2025-0{random.randint(1, 1)}-{random.randint(13, 13):02} {random.randint(7, 24):02}:{random.randint(0, 60):02}:{random.randint(2, 49):02}"
     values.append((type_facture, montant, consommation, ref_id_logement, date_emission))
 c.executemany('INSERT INTO Factures (type_facture, montant, consommation, ref_id_logement, date_emission) VALUES (?, ?, ?, ?, ?)', values)
 
