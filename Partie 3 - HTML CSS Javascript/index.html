@@ -73,7 +73,8 @@
 
   <script src="script_horloge.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => 
+    {
       const audio = document.createElement('audio');
       audio.id = 'background-music';
       audio.preload = 'auto';
@@ -94,13 +95,18 @@
       musicButton.style.left = '80%';
       musicButton.style.transform = 'translateX(-50%)';
 
-      musicButton.addEventListener('click', function () {
-        if (audio.paused) {
-          audio.play().catch(error => {
+      musicButton.addEventListener('click', function () 
+      {
+        if (audio.paused) 
+        {
+          audio.play().catch(error => 
+          {
             console.log("Erreur de lecture de la musique : ", error);
           });
           musicButton.textContent = 'Arrêter la musique';
-        } else {
+        } 
+        else 
+        {
           audio.pause();
           musicButton.textContent = 'Démarrer la musique';
         }

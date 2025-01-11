@@ -10,7 +10,7 @@ Utilisation de GPT pour le débogage, le codage et la recherche d'informations. 
 
 ### Dépendances à installer
 
-1. Assurez-vous que Flask est installé. Si ce n'est pas le cas, installez-le avec la commande suivante, si besion flaskcors et enfin lancez python app.py :
+1. Assurez-vous que Flask et FastAPI sont installés. Si ce n'est pas le cas, installez-le avec la commande suivante, si besion flaskcors et enfin lancez python app.py et Graph_generation.py :
    ```bash
    python -m venv env
    .\env\Scripts\Activate.ps1
@@ -19,10 +19,10 @@ Utilisation de GPT pour le débogage, le codage et la recherche d'informations. 
    pip install flask-cors
    pip install matplotlib numpy
    python '.\Partie 3 - HTML CSS Javascript\app.py'    
-   fastapi dev '.\Partie 3 - HTML CSS Javascript\2_Serv_PieChart_Factures.py'
+   fastapi dev '.\Partie 3 - HTML CSS Javascript\Graph_generation.py'
 
 Enfin ouvrir dans un navigateur le fichier **index.html**
-http://127.0.0.1:5000/mesures pour voir les donnees du site 
+http://127.0.0.1:5000/mesures pour voir les donnees du site (ou encore http://127.0.0.1:8000/factures pour les factures en adaptant au port utilisé )
 
 **📁 app.py ( Serveur Flask )**
 Le fichier app.py contient la logique du serveur qui sert les données à la page web.
