@@ -2,6 +2,8 @@
 
 Projet de développement d'un serveur RESTful basé sur FastAPI, connecté à une base de données SQL pour la gestion, le traitement et le stockage des données. Le projet inclut une API REST permettant des interactions client/serveur, ainsi qu'un site web local développé en HTML/CSS/JavaScript pour une interface utilisateur intuitive.
 
+![Illustration Partie 0 - Page d Accueil web operationnelle](./Ressources_utiles_utilisees/Images_ReadME/Read_ME_0.png)
+
 ## ⚙️​ Contenu du dépôt
 
 Le dépôt est structuré comme suit :

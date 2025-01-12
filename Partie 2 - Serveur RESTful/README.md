@@ -3,6 +3,8 @@
 ## 📽️​ Vidéo Démonstration
 Une vidéo est disponible pour expliquer comment exécuter le serveur REST, interagir avec l’API pour remplir ou consulter la base de données, et visualiser les données sous forme de graphique : [`Video Demonstration Utilisation/Demonstration_Tuto_Partie_2_Serveur_REST.mp4`](https://github.com/Vladislav-Levovitch-Polytech-Sorbonne/Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault/blob/main/Ressources_utiles_utilisees/Modele_Relationnel.png)
 
+![Illustration Partie 2 - Graphique en camembert FastAPi](../Ressources_utiles_utilisees/Images_ReadME/Read_ME_2.png)
+
 ## 🗃️ Partie 2 : Serveur RESTful
 Utilisation de GPT pour le débogage, le codage et la recherche d'informations. Les liens vus en CM ont été utilisés en majeure partie, cités ci-dessous.
 
@@ -25,6 +27,7 @@ https://fastapi.tiangolo.com/fr/tutorial/query-params/#parametres-optionnels
 https://www.w3schools.com/python/default.asp#gsc.tab=0&gsc.q=fastapi
 https://www.w3schools.com/python/default.asp#gsc.tab=0&gsc.q=fastapi
 https://chatgpt.com/
+https://open-meteo.com/en/docs
 
 Remerciement pour le ReadMe source reutilisé : Ayoub LADJiCi et des fichiers de Daniel FERREIRA LARA 
 Readapted with gpt

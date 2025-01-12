@@ -4,6 +4,8 @@
 ## 📽️​ Vidéo Démonstration
 Une vidéo est disponible pour expliquer comment exécuter les scripts de la partie 1, créer et manipuler la base de données, et comprendre son fonctionnement global : [`Video Demonstration Utilisation/Demonstration_Tuto_Partie_1_Base_de_Donnees.mp4`](https://github.com/Vladislav-Levovitch-Polytech-Sorbonne/Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault/blob/main/Video%20Demonstration%20Utilisation/Demonstration_Tuto_Partie_1_Base_de_Donnees.mp4)
 
+![Illustration Partie 1 - Tableau avec quelques relevés de capteur depuis la base de donnée](../Ressources_utiles_utilisees/Images_ReadME/Read_ME_1.png)
+
 ## 🗃️ Partie 1 : Serveur RESTful
 
 Utilisation de GPT pour le débogage, essentiellement et surtout du code fourni dans le cours et disponible dans le répertoire "Ressources_utiles_utilisées"
