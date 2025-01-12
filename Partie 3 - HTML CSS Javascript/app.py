@@ -1,27 +1,23 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sqlite3
 
-app = FastAPI()
+# Initialisation de Flask
+app = Flask(__name__)
+CORS(app)
 
-# Fonction pour initialiser la connexion à la base de données
+# Fonction pour initialiser la connexion à la base de données SQLite
 def get_db_connection():
     conn = sqlite3.connect('../Partie 1 - Base de donnee/logement.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-app = Flask(__name__)
-CORS(app)
-
+# Récupération des mesures avec les types de capteurs et leur unité
 def get_mesures():
-    # Connexion a la base de donnees SQLite
-    conn = sqlite3.connect('../Partie 1 - Base de donnee/logement.db')
-    conn.row_factory = sqlite3.Row  # Permet de recuperer les resultats sous forme de dictionnaires
+    conn = get_db_connection()
     c = conn.cursor()
 
-    # Execution de la requete SQL avec jointure pour extraire l unite (raccourci par le meme type et id de capteur)
+    # Requête SQL pour récupérer les mesures avec l'unité de mesure des capteurs
     c.execute("""
         SELECT 
             Mesures.Identifiant_table_m,
@@ -32,7 +28,7 @@ def get_mesures():
         FROM Mesures
         JOIN Types_Capteurs ON Mesures.ref_id_capteur = Types_Capteurs.Identifiant_table_t;
     """)
-    rows = c.fetchall()  # Recupere toutes les lignes retournees par la requete
+    rows = c.fetchall()
 
     mesures = []
     for row in rows:
@@ -41,20 +37,45 @@ def get_mesures():
             'valeur': row['valeur'],
             'ref_id_capteur': row['ref_id_capteur'],
             'date_insertion': row['date_insertion'],
-            'unite_mesure': row['unite_mesure']  # Ajout de l unite de mesure
+            'unite_mesure': row['unite_mesure']
         })
-    
-    conn.close()  # Fermeture de la connexion a la base de donnees
-    
+
+    conn.close()
     return mesures
 
-# Connexion à la base de données
-def get_db_connection():
-    conn = sqlite3.connect('../Partie 1 - Base de donnee/logement.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+# Route pour obtenir les mesures
+@app.route("/mesures", methods=["GET"])
+def mesures():
+    return jsonify(get_mesures())
 
-# Route pour obtenir les factures avec cumul par type
+# Route pour afficher les capteurs
+@app.route('/capteurs', methods=['GET'])
+def get_capteurs():
+    conn = get_db_connection()
+    c = conn.cursor()
+    c.execute("SELECT * FROM Capteurs")
+    capteurs = c.fetchall()
+    conn.close()
+    return jsonify([dict(capteur) for capteur in capteurs])
+
+# Route pour ajouter un capteur
+@app.route('/add-capteur', methods=['POST'])
+def add_capteur():
+    data = request.json
+    reference_commerciale = data.get('reference_commerciale')
+    port_COM = data.get('port_COM')
+    ref_id_type_capteur = data.get('ref_id_type_capteur')
+    ref_id_piece = data.get('ref_id_piece')
+
+    conn = get_db_connection()
+    conn.execute('''INSERT INTO Capteurs (reference_commerciale, port_COM, ref_id_type_capteur, ref_id_piece)
+                    VALUES (?, ?, ?, ?)''', 
+                    (reference_commerciale, port_COM, ref_id_type_capteur, ref_id_piece))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Capteur ajouté avec succès"}), 201
+
+# Route pour récupérer les factures cumulées par type
 @app.route('/factures/cumul', methods=['GET'])
 def get_cumulative_factures():
     start_date = request.args.get('start_date')
@@ -63,7 +84,6 @@ def get_cumulative_factures():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Récupérer les données de facture triées par date
     query = """
         SELECT type, date, SUM(montant) AS montant
         FROM Factures
@@ -75,7 +95,6 @@ def get_cumulative_factures():
     data = cursor.fetchall()
     conn.close()
 
-    # Préparer les données pour un cumul par type
     cumulative_data = {}
     for row in data:
         facture_type = row["type"]
@@ -91,12 +110,8 @@ def get_cumulative_factures():
             "montant": montant_cumule
         })
 
-    # Réponse JSON formatée
     return jsonify(cumulative_data)
 
-@app.route('/mesures', methods=['GET'])
-def mesures():
-    return jsonify(get_mesures())  # Retourne les mesures en format JSON
-
+# Démarrer l'application Flask
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)

@@ -1,1 +1,32 @@
 /*Economies*/
+.bouton-graphique {
+    background-color: #002199;
+    color: white;
+    border: 2px solid #001177;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bouton-graphique:hover {
+    background-color: rgb(234, 202, 0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+.parametre_date {
+    margin-left: 20%;
+    margin-top: 30px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+iframe {
+    margin-left: 20%;
+}

@@ -6,17 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" href="../Images et audios/Logo.png">
     <link rel="stylesheet" href="../Structure.css" />
-    <link rel="stylesheet" href="Economies.css" />
+    <link rel="stylesheet" href="Consommation.css" />
     <title>Gestion Logement Intelligent</title> <!-- Titre de la page  -->
 </head>
 
-<!-- Contenu de la page  -->
-
 <body>
 
-    <h1>Economies</h1>
+    <h1>Consommation</h1>
 
-    <!-- Ajout de l horloge -->
+    <!-- Ajout de l'horloge -->
     <div class="clock">
         <div id="time"></div>
     </div>
@@ -30,7 +28,22 @@
         <a href="Configuration.html"><button class="parallelogram-button">Configuration</button></a>
     </div>
 
+    <!-- Formulaire pour sélectionner les dates -->
+    <div class="parametre_date">
+        <label for="start-date">Date de début :</label>
+        <input type="date" id="start-date" />
 
+        <label for="end-date">Date de fin :</label>
+        <input type="date" id="end-date" />
+
+        <button id="submit-button" class="bouton-graphique">Voir le graphique</button>
+    </div>
+
+    <!-- Section pour afficher le diagramme -->
+    <div>
+        <iframe id="graph-frame" src="http://127.0.0.1:8000/factures/conso_chart/" width="100%" height="600px"
+            frameborder="0"></iframe>
+    </div>
 
     <!-- Ajout du bas de la page -->
     <footer>
@@ -47,6 +60,7 @@
 
     <script src="../script_horloge.js"></script>
     <script src="../audio.js"></script>
+    <script src="script_conso.js"></script>
 </body>
 
 </html>

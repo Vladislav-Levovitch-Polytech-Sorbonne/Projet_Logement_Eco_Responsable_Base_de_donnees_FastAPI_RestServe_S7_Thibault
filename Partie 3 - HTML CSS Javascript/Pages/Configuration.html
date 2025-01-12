@@ -30,7 +30,22 @@
         <a href="Configuration.html"><button class="parallelogram-button">Configuration</button></a>
     </div>
 
+    <!-- Formulaire pour ajouter un capteur -->
+    <form id="addCapteurForm">
+        <label for="reference_commerciale">Référence Commerciale :</label>
+        <input type="text" id="reference_commerciale" name="reference_commerciale" required><br><br>
 
+        <label for="port_COM">Port COM :</label>
+        <input type="text" id="port_COM" name="port_COM" required><br><br>
+
+        <label for="ref_id_type_capteur">Référence Type Capteur :</label>
+        <input type="number" id="ref_id_type_capteur" name="ref_id_type_capteur" required><br><br>
+
+        <label for="ref_id_piece">Référence Pièce :</label>
+        <input type="number" id="ref_id_piece" name="ref_id_piece" required><br><br>
+
+        <button type="submit">Ajouter Capteur</button>
+    </form>
 
     <!-- Ajout du bas de la page -->
     <footer>
@@ -47,6 +62,34 @@
 
     <script src="../script_horloge.js"></script>
     <script src="../audio.js"></script>
+    <script>
+        document.getElementById("addCapteurForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+    
+            const formData = new FormData(event.target);
+            const data = {
+                reference_commerciale: formData.get('reference_commerciale'),
+                port_COM: formData.get('port_COM'),
+                ref_id_type_capteur: formData.get('ref_id_type_capteur'),
+                ref_id_piece: formData.get('ref_id_piece')
+            };
+    
+            fetch('http://localhost:5000/add-capteur', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Capteur ajouté avec succès !");
+            })
+            .catch(error => {
+                alert("Erreur lors de l'ajout du capteur");
+            });
+        });
+    </script>    
 </body>
 
 </html>
