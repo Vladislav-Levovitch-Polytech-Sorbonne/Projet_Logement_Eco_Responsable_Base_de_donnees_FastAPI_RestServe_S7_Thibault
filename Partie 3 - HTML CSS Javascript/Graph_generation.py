@@ -48,7 +48,8 @@ async def generate_pie_chart(start_date: str = None, end_date: str = None):
 
     # Filtrage par dates
     filtered_data = [
-        row for row in data if (
+        row for row in data if 
+        (
             (not start_date or datetime.strptime(row["date_emission"].split()[0], "%Y-%m-%d") >= start_date) and
             (not end_date or datetime.strptime(row["date_emission"].split()[0], "%Y-%m-%d") <= end_date) and
             row["montant"] != 0  # Exclure les montants à 0
@@ -60,19 +61,42 @@ async def generate_pie_chart(start_date: str = None, end_date: str = None):
 
     # Préparation des données pour le graphique
     types_factures = ['Electricité', 'Eau', 'Gaz', 'Déchets', 'Téléphone', 'Internet']
-    chart_data = [['Type de Facture', 'Nécessaire', 'Dépassement Faible', 'Dépassement Modéré', 'Dépassement Fort']]
+    chart_data = [['Type de Facture', 'Dépassement Faible', 'Dépassement Modéré', 'Dépassement Fort']]
 
     for facture_type in types_factures:
-        necessaire = sum(row["montant"] for row in filtered_data if row["type_facture"] == facture_type and row["montant"] <= 10)
-        faible = sum(row["montant"] for row in filtered_data if row["type_facture"] == facture_type and 10 < row["montant"] <= 20)
-        modere = sum(row["montant"] for row in filtered_data if row["type_facture"] == facture_type and 20 < row["montant"] <= 30)
-        fort = sum(row["montant"] for row in filtered_data if row["type_facture"] == facture_type and row["montant"] > 30)
-        chart_data.append([facture_type, necessaire, faible, modere, fort])
+        # Initialisation des variables pour chaque type de facture
+        faible, modere, fort = 0, 0, 0
+        
+        if facture_type in ['Electricité', 'Eau']:
+            # Logique pour Electricité et Eau
+            for row in filtered_data:
+                if row["type_facture"] == facture_type:
+                    montant = row["montant"]
+                    if 48 < montant <= 53:
+                        faible += montant - 48  # Ajouter la différence pour la tranche faible
+                    elif 53 < montant <= 56:
+                        modere += montant - 48  # Ajouter la différence pour la tranche modérée
+                    elif 56 < montant :
+                        fort += montant - 48  # Ajouter la différence pour la tranche forte
+                    
+        elif facture_type in ['Gaz', 'Téléphone', 'Internet', 'Déchets']:
+            # Logique pour Gaz, Téléphone, et Internet
+            for row in filtered_data:
+                if row["type_facture"] == facture_type:
+                    montant = row["montant"]
+                    if 17 < montant <= 23:
+                        faible += montant - 17  # Ajouter la différence pour la tranche faible
+                    elif 23 < montant <= 27:
+                        modere += montant - 17  # Ajouter la différence pour la tranche modérée
+                    elif 27 < montant :
+                        fort += montant - 17  # Ajouter la différence pour la tranche forte
+        
+        chart_data.append([facture_type, faible, modere, fort])  # Ajouter les résultats pour ce type de facture
 
     chart_data_json = str(chart_data).replace("'", '"')
 
     # Couleurs personnalisées
-    colors = ["#4CAF50", "#FFEB3B", "#FF9800", "#F44336"]
+    colors = ["#f7dc6f", "#f5b041", "#C0392B"]
 
     # HTML pour Google Charts
     html_content = f"""
@@ -300,4 +324,4 @@ async def create_mesure(valeur: float, ref_id_capteur: int):
     conn.close()
     return {"message": "Mesure ajoutée avec succès"}
 
-# Tres Chat GPT comprehension moderement limitee
+# Chat GPT et aide <!-- Avec l aide de Keryann, alias Pitit Chou --> et lien dans ReadME
