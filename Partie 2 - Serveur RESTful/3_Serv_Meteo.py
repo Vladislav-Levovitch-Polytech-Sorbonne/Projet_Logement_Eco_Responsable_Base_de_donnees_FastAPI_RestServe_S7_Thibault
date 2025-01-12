@@ -1,120 +1,55 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
-import sqlite3
+import pandas as pd
+from datetime import datetime, timedelta
 
-app = FastAPI()
+# Exemple de données brutes simulées (corrigez pour qu'elles proviennent de votre API)
+hourly_data = pd.DataFrame({
+    "datetime": pd.date_range(start="2025-01-12 00:00:00", periods=24*5, freq='H'),
+    "temperature_2m": [1.917 + i * 0.1 for i in range(24*5)],
+    "weathercode": [3] * (24*5)
+})
 
-# Fonction pour initialiser la connexion à la base de données
-def get_db_connection():
-    conn = sqlite3.connect('logement.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+# Conversion au format datetime
+hourly_data["datetime"] = pd.to_datetime(hourly_data["datetime"])
 
-# Route pour récupérer toutes les factures
-@app.get("/factures/")
-async def get_factures():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Factures")
-    factures = [dict(row) for row in cursor.fetchall()]
-    conn.close()
-    return {"factures": factures}
+# Arrondi des températures au degré entier tronqué
+hourly_data["temperature_2m"] = hourly_data["temperature_2m"].apply(int)
 
-@app.get("/factures/pie_chart/", response_class=HTMLResponse)
-async def generate_pie_chart():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT type_facture, SUM(montant) as total FROM Factures GROUP BY type_facture") # Proposed by Chat GPT
-    data = cursor.fetchall()
-    conn.close()
+# Extraire uniquement les données à 8h
+hourly_data["hour"] = hourly_data["datetime"].dt.hour
+hourly_data["date"] = hourly_data["datetime"].dt.date  # On extrait la date sans l'heure
+data_at_8h = hourly_data[hourly_data["hour"] == 8]
 
-    donnees = [["type_facture", "total"]]
-    for row in data:
-        donnees.append([row["type_facture"], row["total"]])  # GPTed
+# Mapper les descriptions de weathercode (simplifié)
+weathercode_mapping = {
+    0: "Clair",
+    1: "Principalement clair",
+    2: "Partiellement nuageux",
+    3: "Nuageux",
+    45: "Brouillard",
+    48: "Brouillard givrant",
+    51: "Bruine légère",
+    61: "Pluie légère",
+    71: "Chute de neige légère",
+    95: "Orage"
+}
+data_at_8h["weather_description"] = data_at_8h["weathercode"].map(weathercode_mapping)
 
-    donnee_convertie = str(donnees).replace("'", '"')
+# Associer les jours J0, J1, ..., J4
+start_date = data_at_8h["date"].min()
+data_at_8h["day_label"] = data_at_8h["date"].apply(lambda x: f"J{x.toordinal() - start_date.toordinal()}")
 
-    # HTML avec Google Charts
-    html_content = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-            google.charts.load('current', {{'packages':['corechart']}});
-            google.charts.setOnLoadCallback(drawChart);
+# Filtrer les 5 jours
+forecast = data_at_8h[["day_label", "temperature_2m", "weather_description"]].head(5)
 
-            function drawChart() 
-            {{
-                var data = google.visualization.arrayToDataTable({donnee_convertie});
-                var options = 
-                {{
-                    title: 'Répartition des couts globaux par consommation',
-                    pieHole: 0.4,
-                }};
+# Si des jours manquent, remplir avec "Non disponible"
+days = [f"J{i}" for i in range(5)]
+forecast = pd.DataFrame(days, columns=["day_label"]).merge(
+    forecast, on="day_label", how="left"
+)
+forecast.fillna({"temperature_2m": "Non disponible", "weather_description": "Non disponible"}, inplace=True)
 
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+# Affichage final
+print("\nPrévisions météo pour les 5 prochains jours à 8h :")
+print(forecast)
 
-                chart.draw(data, options);
-            }}
-        </script>
-    </head>
-    <body>
-        <div id="donutchart" style="width: 1200px; height: 600px;"></div>
-    </body>
-    </html>
-    """
-#var data = google.visualization.arrayToDataTable([
-#          ['Task', 'Hours per Day'],
-#          ['Work',     11]]);
-    return HTMLResponse(content=html_content)
-
-# Route pour ajouter une nouvelle facture
-@app.post("/factures/")
-async def create_facture(type_facture: str, montant: float, ref_id_logement: int, date_emission: str, consommation: float = None):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-
-    try:
-        cursor.execute(
-            "INSERT INTO Factures (type_facture, montant, consommation, ref_id_logement, date_emission) VALUES (?, ?, ?, ?, ?)",
-            (type_facture, montant, consommation, ref_id_logement, date_emission),
-        )
-        conn.commit()
-    except sqlite3.Error as e:
-        conn.close()
-        raise HTTPException(status_code=400, detail=str(e))
-
-    conn.close()
-    return {"message": "Facture ajoutée avec succès"}
-
-# Route pour récupérer toutes les mesures
-@app.get("/mesures/")
-async def get_mesures():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Mesures")
-    mesures = [dict(row) for row in cursor.fetchall()]
-    conn.close()
-    return {"mesures": mesures}
-
-# Route pour ajouter une nouvelle mesure
-@app.post("/mesures/")
-async def create_mesure(valeur: float, ref_id_capteur: int):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-
-    try:
-        cursor.execute(
-            "INSERT INTO Mesures (valeur, ref_id_capteur) VALUES (?, ?)",
-            (valeur, ref_id_capteur),
-        )
-        conn.commit()
-    except sqlite3.Error as e:
-        conn.close()
-        raise HTTPException(status_code=400, detail=str(e))
-
-    conn.close()
-    return {"message": "Mesure ajoutée avec succès"}
-
-# Tres Chat GPT comprehension moderement limitee
+#Gpt ed et code du site en readme
