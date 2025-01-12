@@ -14,20 +14,23 @@
 <!-- Contenu de la page  -->
 
 <body>
-
   <h1>Accueil</h1>
 
   <div class="image-text-container">
     <img src="Images et audios/Accueil_Robots.png" alt="Image de robots" class="image-left">
-    <p class="text-right">Paragraphe à écrire Texte Texte texte Texte texte Texte Texte texte Texte texte Texte Texte texte Texte texte Texte Texte texte Texte texte Texte Texte texte Texte texte</p>
+    <p class="text-right">
+      Dans une optique de structure plus responsable, nous avons mis en place une <strong><span style="color: rgb(0, 21, 99);">base de données</span></strong> pour nos pages web afin de mieux visualiser l'état des capteurs et d'analyser les différentes facturations de la structure.
+    </p>
   </div>
 
-  <div class="image-text-container reverse">
-    <p class="text-left">Paragraphe a ecrire Texte Texte texte Texte texte Texte Texte texte Texte texte Texte Texte texte Texte texte Texte Texte texte Texte texte Texte Texte texte Texte texte</p>
+  <div class="image-text-container">
+    <p class="text-left">
+      Cette démarche répond à des enjeux <u>économiques et environnementaux</u> croissants. En centralisant ces informations, nous visons à optimiser la gestion des ressources, identifier des économies et réduire notre empreinte écologique.
+    </p>
     <img src="Images et audios/Accueil_Green_Iot.png" alt="Image feuille verte" class="image-right">
   </div>
 
-  <h2>Titre figure tableau</h2>
+  <h2>Tableau des 10 derniers prélèvements de capteurs</h2>
 
   <!-- Ajout de l'horloge -->
   <div class="clock">
@@ -115,12 +118,14 @@
 
     fetch('http://127.0.0.1:5000/mesures')
       .then(response => response.json())
-      .then(data => {
+      .then(data => 
+      {
         const tableBody = document.getElementById('table-body');
         // On prend les 10 derniers éléments des données
         const extraitdernieresmesures = data.slice(-10);
         // On parcourt ces 10 derniers éléments
-        extraitdernieresmesures.forEach(mesure => {
+        extraitdernieresmesures.forEach(mesure => 
+        {
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${mesure.Identifiant_table_m}</td>

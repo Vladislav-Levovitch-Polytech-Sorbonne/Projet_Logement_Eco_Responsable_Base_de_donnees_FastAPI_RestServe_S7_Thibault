@@ -56,15 +56,17 @@ tr:hover
     font-size: 18px;
     color: #333;
     line-height: 1.5;
-    text-align: center;
-    margin: 1%;
+    text-align: left;
+    margin: 2%;
     border: 3px dashed rgba(0, 21, 99, 0.8);
+    font-family: "Georgia";
+    src: url("./Polices d ecriture/Georgia.otf") format("opentype");
 }
 
 h2
 {
     margin-left: 230px;
     margin-top: 20px;
-    font-size: 2.5em;
+    font-size: 1.7em;
     color: rgba(0, 21, 99, 0.8);
 }

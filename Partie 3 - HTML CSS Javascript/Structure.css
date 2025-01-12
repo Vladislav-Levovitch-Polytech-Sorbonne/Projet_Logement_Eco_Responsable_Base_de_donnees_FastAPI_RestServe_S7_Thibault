@@ -72,7 +72,8 @@ h1
 }
 
 /* Style du bouton "Démarrer/Arrêter la musique" */
-#start-music-button {
+#start-music-button 
+{
     background-color: rgba(0, 21, 99, 0.8);
     color: white;
     font-weight: bold;
@@ -87,25 +88,31 @@ h1
 }
 
 /* Style du bouton au survol */
-#start-music-button:hover {
+#start-music-button:hover 
+{
     background-color: rgba(0, 21, 99, 1);
     transform: scale(1.05);
 }
 
 /* Animation de clignotement du bouton musique */
-@keyframes flashing {
-    0% {
+@keyframes flashing 
+{
+    0% 
+    {
         opacity: 1;
     }
-    50% {
+    50% 
+    {
         opacity: 0.2;
     }
-    100% {
+    100% 
+    {
         opacity: 1;
     }
 }
 
-#start-music-button:active {
+#start-music-button:active 
+{
     animation: flashing 0.5s ease;
 }
 
