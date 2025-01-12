@@ -3,6 +3,8 @@
 ## 📽️​ Vidéo Démonstration
 Une vidéo est disponible pour expliquer comment exécuter le serveur, interagir avec l’API et visualiser les données via le site web : [`Video Demonstration Utilisation/Demonstration_Tuto_Partie_3_Web.mp4`](https://github.com/Vladislav-Levovitch-Polytech-Sorbonne/Projet_Logement_Eco_Responsable_Base_de_donnees_FastAPI_RestServe_S7_Thibault/blob/main/Ressources_utiles_utilisees/Modele_Relationnel.png)
 
+![Illustration Partie 3 - Graphique sur site web](../Ressources_utiles_utilisees/Images_ReadME/ReadME_3.png)
+
 Pour voir la démonstration, **il vous suffit d'ouvrir le fichier `index.html`** dans un navigateur depuis le dossier de la Partie 3 avec l'ensemble des fichiers du projet.
 
 ## 🗃️ Partie 3 : Partie 3 : Frontend - Site Web
